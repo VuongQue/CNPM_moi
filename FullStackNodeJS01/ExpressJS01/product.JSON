@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Áo thun HCMUTE",
+    "description": "Áo thun cotton thoáng mát dành cho sinh viên HCMUTE.",
+    "price": 120000,
+    "stockQuantity": 50,
+    "category": "Áo",
+    "image": "https://picsum.photos/200?random=1"
+  },
+  {
+    "name": "Áo sơ mi trắng nam",
+    "description": "Áo sơ mi form slim fit, chất liệu cotton.",
+    "price": 250000,
+    "stockQuantity": 40,
+    "category": "Áo",
+    "image": "https://picsum.photos/200?random=2"
+  },
+  {
+    "name": "Áo khoác thể thao",
+    "description": "Áo khoác chống gió, phù hợp đi chơi và thể thao.",
+    "price": 350000,
+    "stockQuantity": 30,
+    "category": "Áo",
+    "image": "https://picsum.photos/200?random=3"
+  },
+  {
+    "name": "Quần jeans xanh nam",
+    "description": "Quần jeans nam ống đứng, vải denim bền đẹp.",
+    "price": 400000,
+    "stockQuantity": 25,
+    "category": "Quần",
+    "image": "https://picsum.photos/200?random=4"
+  },
+  {
+    "name": "Quần tây công sở",
+    "description": "Quần tây lịch sự, phù hợp đi làm và dự tiệc.",
+    "price": 300000,
+    "stockQuantity": 35,
+    "category": "Quần",
+    "image": "https://picsum.photos/200?random=5"
+  },
+  {
+    "name": "Quần short kaki nam",
+    "description": "Quần short thoải mái, phù hợp đi chơi.",
+    "price": 180000,
+    "stockQuantity": 60,
+    "category": "Quần",
+    "image": "https://picsum.photos/200?random=6"
+  },
+  {
+    "name": "Giày sneaker trắng",
+    "description": "Giày sneaker unisex, dễ phối đồ.",
+    "price": 500000,
+    "stockQuantity": 20,
+    "category": "Giày",
+    "image": "https://picsum.photos/200?random=7"
+  },
+  {
+    "name": "Giày sandal nam",
+    "description": "Sandal thoáng mát, phù hợp mùa hè.",
+    "price": 220000,
+    "stockQuantity": 45,
+    "category": "Giày",
+    "image": "https://picsum.photos/200?random=8"
+  },
+  {
+    "name": "Giày boot da",
+    "description": "Giày boot cổ cao, da thật cao cấp.",
+    "price": 750000,
+    "stockQuantity": 15,
+    "category": "Giày",
+    "image": "https://picsum.photos/200?random=9"
+  },
+  {
+    "name": "Ba lô laptop",
+    "description": "Ba lô chống sốc đựng laptop 15 inch.",
+    "price": 400000,
+    "stockQuantity": 50,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=10"
+  },
+  {
+    "name": "Túi đeo chéo nam",
+    "description": "Túi đeo chéo da PU, phong cách trẻ trung.",
+    "price": 280000,
+    "stockQuantity": 35,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=11"
+  },
+  {
+    "name": "Ví da nam",
+    "description": "Ví da bò thật, nhiều ngăn tiện lợi.",
+    "price": 320000,
+    "stockQuantity": 40,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=12"
+  },
+  {
+    "name": "Nón lưỡi trai",
+    "description": "Nón lưỡi trai unisex, nhiều màu sắc.",
+    "price": 120000,
+    "stockQuantity": 70,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=13"
+  },
+  {
+    "name": "Thắt lưng da nam",
+    "description": "Thắt lưng da thật khóa kim loại.",
+    "price": 250000,
+    "stockQuantity": 25,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=14"
+  },
+  {
+    "name": "Đồng hồ nam dây da",
+    "description": "Đồng hồ quartz chống nước nhẹ.",
+    "price": 900000,
+    "stockQuantity": 10,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=15"
+  },
+  {
+    "name": "Đồng hồ nữ dây kim loại",
+    "description": "Đồng hồ nữ thời trang, dây thép không gỉ.",
+    "price": 850000,
+    "stockQuantity": 12,
+    "category": "Phụ kiện",
+    "image": "https://picsum.photos/200?random=16"
+  },
+  {
+    "name": "Áo hoodie nam",
+    "description": "Áo hoodie cotton ấm áp, phong cách streetwear.",
+    "price": 350000,
+    "stockQuantity": 30,
+    "category": "Áo",
+    "image": "https://picsum.photos/200?random=17"
+  },
+  {
+    "name": "Áo polo nam",
+    "description": "Áo polo vải cá sấu, sang trọng và thoải mái.",
+    "price": 270000,
+    "stockQuantity": 55,
+    "category": "Áo",
+    "image": "https://picsum.photos/200?random=18"
+  },
+  {
+    "name": "Quần jogger nam",
+    "description": "Quần jogger vải nỉ, thoải mái tập gym.",
+    "price": 220000,
+    "stockQuantity": 40,
+    "category": "Quần",
+    "image": "https://picsum.photos/200?random=19"
+  },
+  {
+    "name": "Giày chạy bộ",
+    "description": "Giày running nhẹ, thoáng khí.",
+    "price": 600000,
+    "stockQuantity": 18,
+    "category": "Giày",
+    "image": "https://picsum.photos/200?random=20"
+  }
+]
