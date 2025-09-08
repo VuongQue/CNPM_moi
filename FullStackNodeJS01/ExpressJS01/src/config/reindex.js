@@ -8,35 +8,62 @@ const esClient = require("../config/elasticsearch");
   try {
     // Kết nối MongoDB
     await mongoose.connect(process.env.MONGO_DB_URL);
+    console.log("✅ Kết nối MongoDB thành công");
+
+    // Ping Elasticsearch
     await esClient.ping();
     console.log("✅ Kết nối Elasticsearch thành công");
 
+    // Xóa index cũ nếu có
+    const indexName = "products";
+    const exists = await esClient.indices.exists({ index: indexName });
+    if (exists) {
+      await esClient.indices.delete({ index: indexName });
+      console.log("🗑️ Đã xóa index cũ:", indexName);
+    }
 
-    // Lấy toàn bộ sản phẩm
+    // Tạo lại index (có thể định nghĩa mapping)
+    await esClient.indices.create({
+      index: indexName,
+      body: {
+        mappings: {
+          properties: {
+            productName: { type: "text" },
+            category: { type: "text" },
+            price: { type: "float" },
+            description: { type: "text" },
+          },
+        },
+      },
+    });
+    console.log("📦 Đã tạo index mới:", indexName);
+
+    // Lấy toàn bộ sản phẩm từ MongoDB
     const products = await Product.find();
+    console.log(`🔎 Tìm thấy ${products.length} sản phẩm trong MongoDB`);
 
-    // Xoá index cũ (nếu có) và tạo mới
-    await esClient.indices.delete({ index: "products" }, { ignore: [404] });
-    await esClient.indices.create({ index: "products" });
-
-    // Index lại từng product
+    // Index lại sản phẩm
     for (let product of products) {
+        console.log(product._id, product.name, product.categoryId);
       await esClient.index({
-        index: "products",
+        index: indexName,
         id: product._id.toString(),
         document: {
           productName: product.productName,
-          categoryId: product.categoryId,
+          category: product.category,
           price: product.price,
           description: product.description,
         },
       });
     }
 
-    console.log(`Reindex thành công: ${products.length} sản phẩm.`);
+    // Refresh để dữ liệu query ra được ngay
+    await esClient.indices.refresh({ index: indexName });
+
+    console.log(`✅ Reindex thành công: ${products.length} sản phẩm.`);
     process.exit(0);
   } catch (err) {
-    console.error("Reindex error:", err);
+    console.error("❌ Reindex error:", err);
     process.exit(1);
   }
 })();
