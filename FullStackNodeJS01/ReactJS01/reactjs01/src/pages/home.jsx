@@ -1,6 +1,7 @@
 import { Result } from "antd";
 import { CrownOutlined } from "@ant-design/icons";
-import ProductList from "../components/layout/ProductList";
+import ProductList from "../components/ProductList";
+import SearchFilter from "../components/SearchFilter";
 
 const HomePage = () => {
   return (
@@ -9,7 +10,11 @@ const HomePage = () => {
         icon={<CrownOutlined />}
         title="JSON Web Token (React/Node.js) - iotstar.vn"
       />
-      {/* Thêm danh sách sản phẩm */}
+
+      {/* Thêm ô tìm kiếm + bộ lọc */}
+      <SearchFilter />
+
+      {/* Danh sách sản phẩm */}
       <ProductList />
     </div>
   );

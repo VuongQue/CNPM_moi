@@ -3,13 +3,15 @@ const jwt = require("jsonwebtoken");
 const white_lists = [
   "/v1/api/register",
   "/v1/api/login",
-  "/v1/api/",
-  "/v1/api/products"
+  "/v1/api/products",
+  "/v1/api/products/search",
+  "/v1/api/categories",
+  "/v1/api/search",
 ];
 
 const auth = (req, res, next) => {
-  // check path thay vì originalUrl để bỏ query string
-  if (white_lists.includes(req.path)) {
+  // Cho phép tất cả path bắt đầu bằng trong white_lists
+  if (white_lists.some(path => req.originalUrl.startsWith(path))) {
     return next();
   }
 
