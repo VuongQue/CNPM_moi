@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { Result } from "antd";
 import { CrownOutlined } from "@ant-design/icons";
 import ProductList from "../components/ProductList";
 import SearchFilter from "../components/SearchFilter";
 
 const HomePage = () => {
+  const [products, setProducts] = useState([]); // quản lý state ở cha
+
   return (
     <div style={{ padding: "20px" }}>
       <Result
@@ -11,11 +14,11 @@ const HomePage = () => {
         title="JSON Web Token (React/Node.js) - iotstar.vn"
       />
 
-      {/* Thêm ô tìm kiếm + bộ lọc */}
-      <SearchFilter />
+      {/* Truyền setProducts cho SearchFilter */}
+      <SearchFilter setProducts={setProducts} />
 
-      {/* Danh sách sản phẩm */}
-      <ProductList />
+      {/* Truyền products cho ProductList */}
+      <ProductList products={products} />
     </div>
   );
 };

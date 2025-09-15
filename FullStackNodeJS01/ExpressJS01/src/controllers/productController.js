@@ -65,7 +65,7 @@ const searchProductsES = async (req, res) => {
         match: {
           productName: {
             query: q,
-            fuzziness: "AUTO",
+            fuzziness: 1,
           },
         },
       });
