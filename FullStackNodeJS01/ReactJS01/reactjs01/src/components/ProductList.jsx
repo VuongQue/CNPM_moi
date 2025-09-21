@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Card, Spin, Pagination } from "antd";
-
-const { Meta } = Card;
+import { Row, Col, Spin, Pagination, message } from "antd";
+import ProductCard from "./ProductCard";
 
 const ProductList = ({ products, initialLoad = true }) => {
   const [data, setData] = useState(products || []);
@@ -10,7 +9,6 @@ const ProductList = ({ products, initialLoad = true }) => {
   const [totalItems, setTotalItems] = useState(0);
   const limit = 12;
 
-  // Load mặc định từ API khi initialLoad = true
   const fetchProducts = async (pageNumber = 1) => {
     try {
       setLoading(true);
@@ -28,18 +26,31 @@ const ProductList = ({ products, initialLoad = true }) => {
     }
   };
 
-  // Lần đầu load
   useEffect(() => {
     if (initialLoad) fetchProducts(page);
-  }, [page]);
+  }, [page, initialLoad]);
 
-  // Nếu SearchFilter bắn props mới xuống → update ngay
   useEffect(() => {
     if (products && products.length >= 0) {
       setData(products);
       setTotalItems(products.length);
     }
   }, [products]);
+
+  const handleFavorite = async (id) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await fetch(`http://localhost:8080/v1/api/products/${id}/favorite`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error("Lỗi khi thêm vào yêu thích");
+      message.success("Đã thêm vào yêu thích!");
+    } catch (err) {
+      console.error(err);
+      message.error("Không thể thêm vào yêu thích");
+    }
+  };
 
   if (loading) {
     return (
@@ -58,29 +69,7 @@ const ProductList = ({ products, initialLoad = true }) => {
       <Row gutter={[16, 16]}>
         {data.map((p) => (
           <Col xs={24} sm={12} md={8} lg={6} key={p._id}>
-            <Card
-              hoverable
-              style={{ width: "100%" }}
-              cover={
-                <img
-                  src={p.image}
-                  alt={p.productName}
-                  style={{ height: 180, objectFit: "cover" }}
-                />
-              }
-            >
-              <Meta
-                title={p.productName}
-                description={
-                  <>
-                    <p style={{ color: "red", fontWeight: "bold" }}>
-                      {p.price?.toLocaleString()} đ
-                    </p>
-                    <p>{p.description}</p>
-                  </>
-                }
-              />
-            </Card>
+            <ProductCard product={p} onFavorite={handleFavorite} />
           </Col>
         ))}
       </Row>

@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   stockQuantity: { type: Number, default: 0 },
   category: { type: String }, // có thể lưu ID của category
+  tags: [{ type: String }],
   images: [{ type: String }], // danh sách URL ảnh
 }, { timestamps: true });
 

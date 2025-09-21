@@ -1,5 +1,7 @@
 const Product = require("../models/product");
 const esClient = require("../config/elasticsearch");
+const Favorite = require("../models/favorite");
+const UserView = require("../models/userView");
 
 // Tạo sản phẩm mới
 const createProduct = async (req, res) => {
@@ -111,10 +113,94 @@ const searchProductsES = async (req, res) => {
   }
 };
 
+// Thêm sản phẩm vào yêu thích
+const addFavorite = async (req, res) => {
+  try {
+    const userId = req.user._id;       // có được từ middleware auth
+    const productId = req.params.id;   // lấy productId từ URL
+
+    if (!userId || !productId) {
+      return res.status(400).json({ message: "Missing userId or productId" });
+    }
+
+    const fav = await Favorite.findOneAndUpdate(
+      { userId, productId },
+      { userId, productId },
+      { upsert: true, new: true }
+    );
+
+    res.json(fav);
+  } catch (err) {
+    console.error("addFavorite error:", err);
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+// Lấy danh sách sản phẩm yêu thích của user
+const getFavorites = async (req, res) => {
+  try {
+    if (!req.user?._id) {
+      return res.status(401).json({ message: "Unauthorized: user not found" });
+    }
+    const userId = req.user._id;
+    const favs = await Favorite.find({ userId }).populate("productId");
+    return res.json(favs.map(f => f.productId));
+  } catch (err) {
+    console.error("getFavorites error:", err);
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+const getRelatedProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product) return res.status(404).json({ message: "Not found" });
+
+    const related = await Product.find({
+      category: product.category,
+      _id: { $ne: product._id }
+    }).limit(6);
+
+
+    res.json(related);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const addView = async (req, res) => {
+  const { productId } = req.body;
+  const userId = req.user._id;
+  await UserView.findOneAndUpdate(
+    { userId, productId },
+    { viewedAt: new Date() },
+    { upsert: true }
+  );
+  res.json({ message: "View recorded" });
+};
+
+const getRecentViews = async (req, res) => {
+  const userId = req.user._id;
+  const views = await UserView.find({ userId })
+    .sort({ viewedAt: -1 })
+    .limit(10)
+    .populate("productId");
+  res.json(views.map(v => v.productId));
+};
+
 
 module.exports = {
   createProduct,
   getProducts,
   getProductById,
   searchProductsES,
+  addFavorite,
+  getFavorites,
+  getRelatedProducts,
+  addView,
+  getRecentViews
 };
